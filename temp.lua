@@ -5982,7 +5982,7 @@ local function currentHandler(...)
 end
 local createFrameFlag, createFrameData = currentHandler()
 local nestedParent = pages["Pet Shop"]
-createFrame(nestedParent, "\240\159\144\190 Pets \240\159\144\190")
+createFrame(nestedParent, "\240\159\144\190 Dragon \240\159\144\190")
 local result = secondaryCreateFrame(nestedParent, "Buy dragon", createFrameFlag, function(...) end)
 local function sendCPetShopRemote(flag, ...)
 	local Event = game:GetService("ReplicatedStorage").rEvents.cPetShopRemote
@@ -5991,10 +5991,15 @@ local function sendCPetShopRemote(flag, ...)
         )
 	return success
 end
-createTextButton(nestedParent, "\240\159\144\190 Buy Pets \240\159\144\190", function(...)
+createTextButton(nestedParent, "\240\159\144\190 Buy Dragon \240\159\144\190", function(...)
 	sendCPetShopRemote(result:Get())
 end) 
 
+createFrame(nestedParent, "\240\159\140\140 Mariposa \240\159\140\140")
+local secondaryResult = secondaryCreateFrame(nestedParent, "Choose Aura", createFrameData, function(...) end)
+createTextButton(nestedParent, "\240\159\140\140 Buy Aura \240\159\140\140", function(...)
+	sendCPetShopRemote(secondaryResult:Get())
+end)
 local result = secondaryCreateFrame(nestedParent, "Buy Butterfly", createFrameFlag, function(...) end)
 local function sendCPetShopRemote(flag, ...)
 	local Event = game:GetService("ReplicatedStorage").rEvents.cPetShopRemote
@@ -6003,47 +6008,10 @@ local function sendCPetShopRemote(flag, ...)
         )
 	return success
 end
-createTextButton(nestedParent, "\240\159\144\190 Buy Pets \240\159\144\190", function(...)
+createTextButton(nestedParent, "\240\159\144\190 Buy Mariposa \240\159\144\190", function(...)
 	sendCPetShopRemote(result:Get())
 end)
-createFrame(nestedParent, "\240\159\140\140 Auras \240\159\140\140")
-local secondaryResult = secondaryCreateFrame(nestedParent, "Choose Aura", createFrameData, function(...) end)
-createTextButton(nestedParent, "\240\159\140\140 Buy Aura \240\159\140\140", function(...)
-	sendCPetShopRemote(secondaryResult:Get())
-end)
-secondaryCreateTextButton(nestedParent, "\240\159\148\129 Auto Buy Aura \240\159\148\129", function(autoAura, ...)
-	pState.autoAura = autoAura
-	if not autoAura then
-		handleValue("autoAura")
-		return
-	end
-	handleSendGiftRemote("autoAura", function(...)
-		while pState.running and pState.autoAura do
-			sendCPetShopRemote(secondaryResult:Get())
-			task.wait(0.18)
-		end
-	end)
-end)
-local function secondaryTaskCallback(...)
-	local additionalResult, alternateResult = currentHandler()
-	result:SetValues(additionalResult, true)
-	secondaryResult:SetValues(alternateResult, true)
-end
-local cPetShopFolder = replicatedStorage:FindFirstChild("cPetShopFolder")
-if cPetShopFolder then
-	handleFrame(cPetShopFolder.ChildAdded:Connect(function(...)
-		task.defer(secondaryTaskCallback)
-	end))
-	handleFrame(cPetShopFolder.ChildRemoved:Connect(function(...)
-		task.defer(secondaryTaskCallback)
-	end))
-else
-	handleFrame(replicatedStorage.ChildAdded:Connect(function(instance, ...)
-		if instance.Name == "cPetShopFolder" then
-			task.defer(secondaryTaskCallback)
-		end
-	end))
-end
+
 local innerParent = pages.Stats
 createFrame(innerParent, "\226\143\177\239\184\143 Sesi\195\179n \226\143\177\239\184\143")
 local secondaryTextResult = createStatusDot(innerParent, "Executed since:", "0d 0h 0m 0s", colors.cyan)
