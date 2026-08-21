@@ -6004,7 +6004,7 @@ local result = secondaryCreateFrame(nestedParent, "Buy Butterfly", createFrameFl
 local function sendCPetShopRemote(flag, ...)
 	local Event = game:GetService("ReplicatedStorage").rEvents.cPetShopRemote
         Event:InvokeServer(
-        game:GetService("ReplicatedStorage").shared.runtime.cPetShopFolder["Infernal Dragon"]
+        game:GetService("ReplicatedStorage").shared.runtime.cPetShopFolder["Magic Butterfly"]
         )
 	return success
 end
@@ -6012,7 +6012,7 @@ createTextButton(nestedParent, "\240\159\144\190 Buy Mariposa \240\159\144\190",
 	local function sendCPetShopRemote(flag, ...)
 	local Event = game:GetService("ReplicatedStorage").rEvents.cPetShopRemote
         Event:InvokeServer(
-        game:GetService("ReplicatedStorage").shared.runtime.cPetShopFolder["Infernal Dragon"]
+        game:GetService("ReplicatedStorage").shared.runtime.cPetShopFolder["Magic Butterfly"]
         )
 	return success
 end)
