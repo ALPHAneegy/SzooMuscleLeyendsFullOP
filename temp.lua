@@ -6009,7 +6009,12 @@ local function sendCPetShopRemote(flag, ...)
 	return success
 end
 createTextButton(nestedParent, "\240\159\144\190 Buy Mariposa \240\159\144\190", function(...)
-	sendCPetShopRemote(result:Get())
+	local function sendCPetShopRemote(flag, ...)
+	local Event = game:GetService("ReplicatedStorage").rEvents.cPetShopRemote
+        Event:InvokeServer(
+        game:GetService("ReplicatedStorage").shared.runtime.cPetShopFolder["Infernal Dragon"]
+        )
+	return success
 end)
 
 local innerParent = pages.Stats
